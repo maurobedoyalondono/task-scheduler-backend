@@ -17,7 +17,7 @@ It will run by default on port '3000', it can be updated on app.js
 
 ## Database
 
-This application uses a local json database (nestdb), it contains to files: data/tasks and data/users. This is not a DB to be used in a real application, be aware of it.
+This application uses a local json database (nestdb), it contains the files: database/files/tasks and database/files/users. This is not a DB to be used in a real application, be aware of it.
 Some sample data has been left in the database, you can add these files to "gitignore" and the application will create them again if not found.
 
 ## API Resources

@@ -18,10 +18,10 @@ class DataManager {
   }
 
   init() {
-    this.#tasksDataStore = new Datastore({ filename: "./data/tasks" });
+    this.#tasksDataStore = new Datastore({ filename: "./database/files/tasks" });
     this.#tasksDataStore.load();
 
-    this.#usersDataStore = new Datastore({ filename: "./data/users" });
+    this.#usersDataStore = new Datastore({ filename: "./database/files/users" });
     this.#usersDataStore.load();
   }
 
