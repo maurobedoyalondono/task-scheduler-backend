@@ -45,13 +45,36 @@ tasksApp.get(`/`, (req, res) => {
 });
 
 
-tasksApp.post(`/`, (req, res) => {
-  const newTask = {
-    id: 1,
-    dateCreated: new Date(),
+tasksApp.post(`/`, async (req, res) => {
+  const userId = req.get('User-Id');
+  const name = req.body.name;
+  const description = req.body.description;
+  const cronExpression = req.body.cronExpression;
+  const type = req.body.type;
+  const data = req.body.data;
+
+  const task = {
+    name,
+    description,
+    cronExpression,
+    userId,
+    type,
+    data,
+    dateCreated: new Date()
   };
 
-  res.json(newTask);
+  try {
+    const newTask = await TaskManager.createTask(task);
+
+    if (!newTask) {
+      return res.status(500).json({ error: 'Unable to create the task' });
+    }
+
+    res.json(newTask);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 module.exports = tasksApp;

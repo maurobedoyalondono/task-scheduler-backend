@@ -7,14 +7,14 @@ function createTaskExecutor(task) {
   switch (task.type) {
     case "WebScraper":
       taskExecutor = new WebScrapper(
-        task.id,
+        task._id,
         task.cronExpression,
         task.data.url
       );
       break;
     case "RandomImage":
       taskExecutor = new RandomImage(
-        task.id,
+        task._id,
         task.cronExpression
       );
       break;

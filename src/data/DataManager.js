@@ -69,9 +69,21 @@ class DataManager {
     });
   }
 
+  createTask(task) {
+    return new Promise((resolve, reject) => {
+      this.#tasksDataStore.insert(task, function (err, newTask) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(newTask);
+        }
+      });
+    });
+  }
+
   getTasksById(taskId) {
     return new Promise((resolve, reject) => {
-      this.#tasksDataStore.findOne({ id: taskId }, function (err, docs) {
+      this.#tasksDataStore.findOne({ _id: taskId }, function (err, docs) {
         if (err) {
           reject(err);
         } else {
@@ -83,11 +95,11 @@ class DataManager {
 
   updateTaskExecution(taskId, executionDetails) {
     return new Promise((resolve, reject) => {
-      this.#tasksDataStore.update({ id: taskId }, {
+      this.#tasksDataStore.update({ _id: taskId }, {
         $set: {
           executionData: { lastExecutionDate: new Date(), details: executionDetails }
         }
-      }, {}, function (err, numReplaced) {
+      }, { upsert: false }, function (err, numReplaced) {
         if (err) {
           reject(err);
         } else {

@@ -48,12 +48,22 @@ class TaskManager {
   static async scheduleAllTasks() {
     const tasks = await TaskManager.getAllTasks();
 
+    console.log('# Tasks to be scheduled: ' + tasks.length);
+
     tasks.forEach(task => {
       scheduler.scheduleTask(TaskExecutorFactory.createTaskExecutor(task));
     });
   }
 
-  static addUserTask(userId, task) {}
+  static async createTask(task) {
+    const newTask = await dataManager.createTask(task);
+
+    scheduler.scheduleTask(TaskExecutorFactory.createTaskExecutor(newTask));
+
+    return new Promise((resolve, reject) => {
+      resolve(newTask);
+    });
+  }
 }
 
 module.exports = TaskManager;
