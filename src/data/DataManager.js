@@ -81,6 +81,18 @@ class DataManager {
     });
   }
 
+  getTasksByUserId(userId) {
+    return new Promise((resolve, reject) => {
+      this.#tasksDataStore.find({ userId: userId}, function (err, tasks) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(tasks);
+        }
+      });
+    });
+  }
+
   createTask(task) {
     return new Promise((resolve, reject) => {
       this.#tasksDataStore.insert(task, function (err, newTask) {

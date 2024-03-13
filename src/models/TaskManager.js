@@ -9,25 +9,10 @@ class TaskManager {
   }
 
   static getTasksByUser(userId) {
-    const tasks = [
-      {
-        id: "1",
-        type: 'WebScrapper',
-        name: 'Web Scraper Google',
-        description: 'Checks Google every 3 minutes',
-        userId: userId,
-        cronExpression: '5,10 * * * * *',
-        data: {
-          url: 'http://www.google.com',
-        },
-        dateCreated: new Date(),
-      },
-    ];
-
-    return tasks;
+    return dataManager.getTasksByUserId(userId);
   }
 
-  static getTaskById(taskId, userId) {
+  static getTaskById(taskId) {
      return dataManager.getTasksById(taskId);
   }
 

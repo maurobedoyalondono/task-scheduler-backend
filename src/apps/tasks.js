@@ -39,10 +39,12 @@ tasksApp.get(`/:taskid`, async (req, res) => {
   }
 });
 
-tasksApp.get(`/`, (req, res) => {
+tasksApp.get(`/`, async (req, res) => {
   const userId = req.get('User-Id');
 
-  res.json(TaskManager.getTasksByUser(userId));
+  const userTasks = await TaskManager.getTasksByUser(userId)
+
+  res.json(userTasks);
 });
 
 
