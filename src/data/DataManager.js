@@ -83,7 +83,7 @@ class DataManager {
 
   getTasksByUserId(userId) {
     return new Promise((resolve, reject) => {
-      this.#tasksDataStore.find({ userId: userId}, function (err, tasks) {
+      this.#tasksDataStore.find({ userId: userId}).sort( { dateCreated: -1 }).exec(function (err, tasks) {
         if (err) {
           reject(err);
         } else {
