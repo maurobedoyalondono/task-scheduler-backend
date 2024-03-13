@@ -22,7 +22,7 @@ class TaskManager {
 
   static init() {
     taskEventManager.on("taskCompleted", (task, response) => {
-      console.log("Task execution completed: " + task.id);
+      console.log("Task execution completed: " + task.id + new Date().toString());
     
       dataManager.updateTaskExecution(task.id, response);
     });
