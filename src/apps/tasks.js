@@ -2,6 +2,7 @@ const express = require("express");
 const tasksApp = express();
 
 const TaskManager = require('../models/TaskManager');
+const UserManager = require('../models/UserManager');
 
 tasksApp.use((req, res, next) => {
   //TODO: This should be a TOKEN instead, however the security functionality is out of the scope, this is doing as a basic validation
@@ -64,6 +65,12 @@ tasksApp.post(`/`, async (req, res) => {
   };
 
   try {
+    const user = await UserManager.getUserById(userId);
+
+    if (!user) {
+      return res.status(503).json({ error: 'Invalid user' });
+    }
+
     const newTask = await TaskManager.createTask(task);
 
     if (!newTask) {

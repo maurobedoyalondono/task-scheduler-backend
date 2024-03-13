@@ -57,6 +57,18 @@ class DataManager {
     });
   }
 
+  getUserById(userId) {
+    return new Promise((resolve, reject) => {
+      this.#usersDataStore.findOne({ _id: userId }, function (err, user) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(user);
+        }
+      });
+    });
+  }
+
   getAllTasks() {
     return new Promise((resolve, reject) => {
       this.#tasksDataStore.find({}, function (err, docs) {
